@@ -1,0 +1,3 @@
+#!/bin/sh
+systemctl unmask firewalld.service
+systemctl start firewalld.service
