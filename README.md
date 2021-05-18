@@ -1,8 +1,8 @@
 # From Chef-Workstation
-   -- go to "chef-repo/cookbooks"
-   -- chef generate cookbook name_cookbook
-   -- This will generate a directory named name_cookbook with some sub-folders and files
-   -- Navigate to cookbooks/first_cookbook/
+   - go to "chef-repo/cookbooks"
+   - chef generate cookbook name_cookbook
+   - This will generate a directory named name_cookbook with some sub-folders and files
+   - Navigate to cookbooks/first_cookbook/
  
  # 2_Tomcat
 
