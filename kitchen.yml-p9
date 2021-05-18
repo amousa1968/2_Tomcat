@@ -1,0 +1,62 @@
+---
+driver:
+  name: openstack
+  openstack_username: <%= ENV['P9_USER'] %>
+  openstack_api_key: <%= ENV['P9_PWD'] %>
+  openstack_auth_url: 'https://openstack-int.platform9.net/keystone/v3'
+  openstack_identity_api_version: 3
+  allocate_floating_ip: true
+  floating_ip_pool: 'Add Your-ExtNet'
+  openstack_region: dc1
+  openstack_region_name: dc1
+  openstack_project_name: 'ChefKitchen'
+  openstack_project_domain_id: default
+  openstack_user_domain_id: default
+  openstack_network_name: 'chef-internal'
+  key_name: <%= ENV['KEY_NAME'] %>
+  network_id: 'Add your network_id provided by openstack'
+  security_groups:
+    - chef-default
+  availability_zone: 'Which_Zone'
+  user_data: userdata.txt
+  http_proxy: 'http://ADD YOUR PROXY-SERVER:8080'
+  https_proxy: 'http://ADD YOUR PROXY-SERVER:8080'
+
+transport:
+  ssh_key: <%= ENV['KITCHEN_KEY'] %>
+  connection_timeout: 60
+  connection_retries: 5
+  username: cloud-user
+  command_timeout: 50
+  
+  network:
+  floating_ip: delete
+  allocate_floating_ip: delete
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 16.4.41
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7
+    driver:
+      image_ref: 'centos7-p9.add'
+      server_name: d1-kitchen-centos7-2_Tomcat
+      flavor_ref: 'm1.small'
+    transport:
+      username: centos
+  - name: rhel-7
+    driver:
+      image_ref: 'rhel7-p9.qcow2'
+      server_name: d1-kitchen-rhel7-2_Tomcat
+      flavor_ref: 'm1.small'
+
+suites:
+  - name: default
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
